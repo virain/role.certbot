@@ -1,0 +1,4 @@
+dependencies_pkg:
+  - python3
+  - python3-venv
+  - libaugeas0

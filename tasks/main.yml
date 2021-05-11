@@ -1,0 +1,40 @@
+- name: Include variables
+  include_vars: "{{ ansible_os_family }}.yml"
+
+- name: Install system dependencies
+  package:
+    name: "{{ dependencies_pkg }}"
+    state: present
+
+- name: Set up a Python virtual environment
+  pip: 
+    name: pip
+    extra_args: -U
+    virtualenv_command: pyvenv
+    virtualenv: /usr/local/certbot
+  
+- name: Install certbot
+  pip: 
+    name: 
+      - certbot 
+      - certbot-{{ certbot_plugin }}
+    extra_args: -U
+    virtualenv_command: pyvenv
+    virtualenv: /usr/local/certbot
+
+- name: Prepare the Certbot command
+  file:
+    src: /usr/local/certbot/bin/certbot
+    dest: /usr/bin/certbot
+    state: link
+
+- name: Set up automatic renewal
+  cron: 
+    name: "certbot automatic renewal"
+    minute: "0"
+    hour: "0,12"
+    user: root
+    job: > 
+      /usr/local/certbot/bin/python -c 'import random; 
+      import time; time.sleep(random.random() * 3600)' && 
+      certbot renew -q" | sudo tee -a /etc/crontab > /dev/null
