@@ -1,0 +1,3 @@
+dependencies_pkg:
+  - python3
+  - augeas-libss
