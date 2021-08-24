@@ -10,7 +10,7 @@
   pip: 
     name: pip
     extra_args: -U
-    virtualenv_command: pyvenv
+    virtualenv_command: "{{ discovered_interpreter_python }} -m venv"
     virtualenv: /usr/local/certbot
   
 - name: Install certbot
@@ -19,7 +19,7 @@
       - certbot 
       - certbot-{{ certbot_plugin }}
     extra_args: -U
-    virtualenv_command: pyvenv
+    virtualenv_command: "{{ discovered_interpreter_python }} -m venv"
     virtualenv: /usr/local/certbot
 
 - name: Prepare the Certbot command
