@@ -13,10 +13,15 @@
     virtualenv_command: "/usr/bin/python3 -m venv"
     virtualenv: /usr/local/certbot
   
+- name: Install cffi
+  pip:
+    name: cffi
+    virtualenv_command: "/usr/bin/python3 -m venv"
+    virtualenv: /usr/local/certbot
+
 - name: Install certbot
   pip: 
     name: 
-      - cffi
       - certbot 
       - certbot-{{ certbot_plugin }}
     extra_args: -U
