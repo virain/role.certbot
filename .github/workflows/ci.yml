@@ -26,9 +26,14 @@ jobs:
 
     steps:
       - name: Check out the codebase.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           path: 'role.certbot'
+          
+      # github 认证
+      - uses: de-vri-es/setup-git-credentials@v2
+        with:
+          credentials: https://virain:${{ secrets.PERSONAL_TOKEN }}@github.com/
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
