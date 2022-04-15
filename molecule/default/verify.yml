@@ -7,3 +7,7 @@
   tasks:
   - name: Run Certbot
     shell: certbot --version
+    register: output
+
+  - debug:
+      msg: "{{ output  }}"
