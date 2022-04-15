@@ -4,16 +4,16 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: Instance _${MOLECULE_DISTRO:-centos7}
+  - name: instance_${MOLECULE_DISTRO:-centos7}
     image: geerlingguy/docker-${MOLECULE_DISTRO:-centos7}-ansible:latest
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     pre_build_image: true
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    env:  
-      http_proxy: ${http_proxy:-""}
-      https_proxy: ${http_proxy:-""}
+    # env:  
+    #   http_proxy: ${http_proxy:-""}
+    #   https_proxy: ${http_proxy:-""}
       
 provisioner:
   name: ansible
