@@ -1,16 +1,20 @@
+---
 dependency:
   name: galaxy
 driver:
   name: docker
 platforms:
-  - name: Certbot
-    image: ansible-centos7
+  - name: Instance _${MOLECULE_DISTRO:-centos7}
+    image: geerlingguy/docker-${MOLECULE_DISTRO:-centos7}-ansible:latest
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    pre_build_image: true
     privileged: true
-    command: /usr/lib/systemd/systemd
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    pre_build_image: true
-
+    env:  
+      http_proxy: ${http_proxy:-""}
+      https_proxy: ${http_proxy:-""}
+      
 provisioner:
   name: ansible
 verifier:
