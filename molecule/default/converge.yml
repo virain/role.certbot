@@ -3,7 +3,8 @@
   hosts: all
   tasks:
     - name: "Include role.common"
-      include_role: "role.common"
+      include_role: 
+        name: "role.common"
       
     - name: "Include role.certbot"
       include_role:
