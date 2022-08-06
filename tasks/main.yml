@@ -23,7 +23,8 @@
   pip: 
     name: 
       - certbot 
-      - certbot-{{ certbot_plugin }}
+      - certbot-apache
+      - certbot-nginx
     extra_args: -U
     virtualenv_command: "/usr/bin/python3 -m venv"
     virtualenv: /usr/local/certbot
