@@ -1,0 +1,6 @@
+[Unit]
+Description=Certbot Automatic Renewal Service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/certbot renew --quiet --agree-tos

@@ -36,12 +36,15 @@
     state: link
 
 - name: Set up automatic renewal
-  cron: 
-    name: "certbot automatic renewal"
-    minute: "0"
-    hour: "0,12"
-    user: root
-    job: > 
-      /usr/local/certbot/bin/python -c 'import random; 
-      import time; time.sleep(random.random() * 3600)' && 
-      certbot renew -q" | sudo tee -a /etc/crontab > /dev/null
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /usr/lib/systemd/system/
+  loop:
+    - certbot-renewal.service
+    - certbot-renewal.timer
+
+- name: enable renewal systemd timer
+  ansible.builtin.service:
+    name: certbot-renewal.timer
+    state: started
+    enabled: yes
